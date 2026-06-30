@@ -126,6 +126,79 @@ The lab demonstrates effective detection and alerting capabilities for the follo
 - **Suspicious Login Attempts:** Identifying out-of-hours or anomalous user logons.
 - **Root Activity:** Auditing critical commands executed by the superuser.
 
+  # ⚔️ Attack Scenarios
+
+## 🛡️ Scenario 1: SSH Authentication Monitoring & Brute Force Detection
+
+### 🎯 Objective
+Demonstrate Wazuh's capability to monitor SSH authentication events, capture real-time logs, and detect brute force or unauthorized login attempts.
+
+### 💻 Lab Environment
+| Component | Value |
+|-----------|-------|
+| **SIEM** | Wazuh 4.x |
+| **Operating System** | Kali Linux (Manager & Endpoint) |
+| **Dashboard** | OpenSearch-based Wazuh Dashboard |
+| **Log Storage** | Wazuh Indexer |
+| **Log Shipper** | Wazuh Agent / Journald |
+
+🔍 Detection Results
+After generating the authentication activity, the Wazuh Manager successfully collected, parsed, and indexed the events.
+
+Observed Dashboard Statistics:
+
+📊 Total Security Events: 1,365+
+
+❌ Authentication Failures: 21+ (Captured continuous automated failed attempts)
+
+🔓 Authentication Successes: 26+
+
+🚨 High Severity Alerts (Level 12+): 5 Alerts triggered
+
+🎯 Triggered Rule Breakdown:
+Rule ID: 5710
+
+Description: sshd: Attempt to login using a non-existent user
+
+Alert Level: 5
+
+🗺️ MITRE ATT&CK Mapping
+Wazuh correlated the incoming syslog events directly with the MITRE ATT&CK framework:
+
+Tactics: Credential Access, Lateral Movement
+
+Techniques: * T1110.001 – Brute Force: Password Guessing
+
+T1021.004 – Remote Services: SSH
+
+T1078 – Valid Accounts
+
+📊 Evidence & Artifacts
+1. Threat Hunting Dashboard Overview
+Shows the spike in security events and authentication statistics.
+
+2. Detailed Rule Event & MITRE Mapping
+Decoded payload showcasing the Rule ID 5710, trigger logic, and precise MITRE alignment.
+
+🏆 Outcome
+This scenario verifies that the deployed SIEM homelab successfully:
+
+Monitors local and remote SSH endpoints continuously.
+
+Ingeniously identifies patterns of brute force attacks (invalid users/rapid failures).
+
+Visualizes critical metrics instantly for security analyst triage.
+
+---
+
+
+### ⚡ Attack Simulation
+The SSH service was enabled and monitored locally. To generate high-fidelity alert spikes, an automated loop was executed to simulate an active **Brute Force / Password Guessing** attack:
+
+```bash
+# Verify SSH service status
+sudo systemctl status ssh
+
 
  ### 🛡️ Scenario 1: SSH Brute Force Detection
 
