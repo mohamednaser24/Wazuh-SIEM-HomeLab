@@ -22,7 +22,18 @@ Enterprise SIEM • Threat Detection • Incident Response
 A complete **Security Information and Event Management (SIEM)** Home Lab built using **Wazuh**, **OpenSearch**, **Filebeat**, and **Wazuh Dashboard** on **Kali Linux** with a **Windows Agent** for endpoint monitoring.
 
 ---
+# 📖 Table of Contents
 
+- [Project Overview](#-project-overview)
+- [Lab Architecture](#%EF%B8%8F-lab-architecture)
+- [Technologies Used](#-technologies-used)
+- [Project Structure](#-project-structure)
+- [Images](#-images)
+- [Features](#-features)
+- [Documentation](#-documentation)
+- [Future Improvements](#-future-improvements)
+
+---
 # 📖 Project Overview
 
 This project demonstrates the deployment and configuration of a complete SIEM environment capable of:
@@ -72,7 +83,7 @@ Wazuh-SIEM-HomeLab/
 
 ---
 
-# 📸 Screenshots
+# 📸 Images
 
 ## 🏠 Dashboard
 
@@ -127,13 +138,17 @@ Wazuh-SIEM-HomeLab/
 
 The repository includes documentation for:
 
-- Installation
-- Configuration
-- Detection Rules
-- Reports
-- Scripts
-- Screenshots
+.Installation
 
+.Configuration
+
+.Detection Rules
+
+.Reports
+
+.Scripts
+
+.Screenshots
 ---
 
 # 🎯 Future Improvements
