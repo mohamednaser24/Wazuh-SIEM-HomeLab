@@ -127,7 +127,7 @@ The lab demonstrates effective detection and alerting capabilities for the follo
 - **Root Activity:** Auditing critical commands executed by the superuser.
 
 
-- ### 🛡️ Scenario 1: SSH Brute Force Detection
+ ### 🛡️ Scenario 1: SSH Brute Force Detection
 
 To test the SIEM's real-time alerting and MITRE ATT&CK mapping, an SSH Brute Force attack was simulated locally using a fast automated loop generating failed authentication logs.
 
