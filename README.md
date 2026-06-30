@@ -96,7 +96,7 @@ Provides a centralized overview of the log evolution, metric counts, and continu
 ### 🚨 2. Security Events Breakdown
 Displays the live event stream parsed directly by the manager.
 <p align="center">
-  <img src="images/event.png" alt="Security Events" width="90%">
+  <img src="images/Event.png" alt="Security Events" width="90%">
 </p>
 
 ### 🛡️ 3. SSH Brute Force Details & MITRE ATT&CK
