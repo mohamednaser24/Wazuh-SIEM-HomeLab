@@ -285,13 +285,49 @@ sudo touch /etc/fim-demo.txt
 # Simulating unauthorized content modification
 echo "Test" | sudo tee -a /etc/fim-demo.txt
 
-## ⚔️ Scenario 3: SSH Brute Force Detection & Active Response Mitigation
+
+## ⚔️ Scenario 3: Custom SSH Brute Force Detection & Automated Active Response
 
 ### 🎯 Objective
-Demonstrate Wazuh's capability to detect persistent multi-threaded authentication attacks (Brute Forcing) using automated tools and leverage **Active Response** to dynamically block the attacker's IP address.
+Demonstrate an advanced enterprise-grade defense mechanism by correlating multiple single authentication failures (`Rule 5760`) into a custom high-severity alert. Once triggered, **Active Response** automatically invokes host-level mitigation (`iptables`) to isolate the attacker.
+
+### 🗺️ Dynamic Attack & Response Flow
+```text
+  [ Hydra Attack Tool ]
+           │
+           ▼
+[ Multiple Failed SSH Logins ] ➔ Triggers Rule 5760 (Single Failure)
+           │
+           ▼
+[ Rule Correlation Engine ]   ➔ Observes 5+ failures within 30 seconds
+           │
+           ▼
+[ Custom Rule Triggered ]     ➔ Custom Rule ID fires (High Severity)
+           │
+           ▼
+[ Active Response Dynamic ]   ➔ Invokes automated firewall drop script
+           │
+           ▼
+[ Dynamic iptables Block ]    ➔ Attacker IP hard-dropped in real-time
 
 ### 🧰 Attack Tool
 * **Hydra:** A fast and flexible network logon cracker used to simulate a high-velocity password guessing attack.
+
+🛠️ Configuration & Custom Correlation Rule
+Instead of blocking from the first mistake, a custom correlation rule was built inside /var/ossec/etc/rules/local_rules.xml to monitor the frequency:
+
+<group name="local,syslog,sshd,">
+  <rule id="100001" level="10">
+    <if_sid>5760</if_sid>
+    <same_source_ip />
+    <frequency>5</frequency>
+    <timeframe>30</timeframe>
+    <description>Custom Alert: Multiple SSH Authentication Failures from Same IP (Possible Brute Force).</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+  </rule>
+</group>
 
 🛡️ Active Response Trigger:
 Upon detecting a threshold of continuous failures, the Wazuh Manager dynamically invoked the firewall-drop script, modifying local host firewall rules (iptables) to block the adversarial IP source for 10 minutes.
@@ -306,19 +342,74 @@ Upon detecting a threshold of continuous failures, the Wazuh Manager dynamically
 | Remote Service | T1021.004 - SSH |
 
 📊 Evidence & Artifacts
-1. Advanced Brute Force Detection
-Wazuh capturing the high-frequency failure signatures and successfully correlating them with the MITRE ATT&CK framework.
+1. Custom Rule Triggered & MITRE Mapping
+Wazuh’s security engine successfully correlates the Hydra noise into the custom high-severity rule 100001.
 
-2. Active Response Execution Log
-Evidence from the dashboard confirming that the security system shifted from passive monitoring to active containment by executing the firewall block.
+2. Active Response Firewall Execution
+The ultimate proof of mitigation: Wazuh logs the execution of the firewall-drop command blocking the aggressive IP source.
 
-🏆 Outcome
-Real-time Alerting: Automated credential harvesting tools were immediately flagged.
+🏆 Production-Ready Outcomes
+No False Positives: Normal user mistakes are ignored; only continuous brute-force behaviors trigger containment.
 
-Proactive Containment: The SIEM successfully transitioned into an active defense mechanism, neutralizing the attack path before a breach could occur.
+SOAR Automation: Reduced Time-to-Mitigate (TTM) down to milliseconds without human-analyst intervention.
 
-Centralized Audit: Both the attack indicators and the automated defensive response were logged and indexed for forensic visibility.
+Adaptive Defense: Hardened the host dynamically while ensuring forensic logs are preserved for the incident response cycle.
 ---
+
+
+## ⚔️ Scenario 4: Advanced Custom SSH Brute Force Detection & Active Response
+
+### 🎯 Objective
+Demonstrate an enterprise-grade threat containment workflow. By aggregating multiple baseline SSH authentication failures (`Rule 5760`), a high-severity custom correlation rule is triggered. This immediately fires an automated **Active Response** mechanism to hard-block the attacker's source IP on the host firewall.
+
+### 🧰 Attack Simulation Tool
+* **THC Hydra:** Used to orchestrate a high-velocity, multi-threaded password guessing attack against the target SSH service.
+
+```bash
+# Simulating a live credential harvesting/brute-force attack
+hydra -l attacker -P passwords.txt ssh://192.168.80.131 -t 4
+
+🧱 Architectural Logic & Detection Flow
+Plaintext
+  [ Hydra Attack Tool ]
+           │
+           ▼
+[ Multiple Failed SSH Logins ] ➔ Triggers Rule 5760 (Single Failure)
+           │
+           ▼
+[ Rule Correlation Engine ]   ➔ Observes 5+ failures within 30 seconds
+           │
+           ▼
+[ Custom Rule Triggered ]     ➔ Rule ID 100002 fires (Level 10 Severity)
+           │
+           ▼
+[ Active Response Dynamic ]   ➔ Invokes automated 'firewall-drop' script
+           │
+           ▼
+[ Host-Level Containment ]    ➔ Attacker IP dropped via iptables in real-time
+
+🔍 Detection & Mitigation Metrics
+
+| Property | Value |
+|----------|-------|
+| Rule ID | 5712 |
+| Level | 10 |
+| Description | SSH brute force trying to get access to the system |
+| Technique | T1110 – Brute Force |
+| Service | SSH |
+
+📊 Evidence & Forensic Artifacts
+1. Custom Correlated Alert Generated
+Wazuh’s correlation engine group metrics successfully catching the Hydra velocity under Custom Rule 100002.
+
+2. Active Response Firewall Execution
+Defensive containment confirmation showing the automated firewall-drop action successfully executing.
+
+🏆 Defensive Outcomes
+Zero Analyst Intervention: Mitigation Time-to-Respond dropped from minutes to milliseconds through automated SOAR playbook execution.
+
+Production-Safe Logic: Single typos or standard user authentication mistakes ignore containment; only multi-event algorithmic thresholds provoke an active host block.
+
 
 ### ⚡ Attack & Response Simulation
 The attack was launched using Hydra against the local SSH service to trigger rapid, consecutive authentication failures:
