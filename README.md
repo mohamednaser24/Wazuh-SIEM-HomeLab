@@ -83,7 +83,33 @@ Wazuh-SIEM-HomeLab/
 
 ---
 
-# 📸 Images
+## 📊 Evidence & Project Visualizations
+
+Here is the full dashboard breakdown and evidence from the security simulations implemented within the lab:
+
+### 🏠 1. Threat Hunting Dashboard Overview
+Provides a centralized overview of the log evolution, metric counts, and continuous agent evaluation.
+<p align="center">
+  <img src="images/dashboard-home.png" alt="Dashboard Home" width="90%">
+</p>
+
+### 🚨 2. Security Events Breakdown
+Displays the live event stream parsed directly by the manager.
+<p align="center">
+  <img src="images/event.png" alt="Security Events" width="90%">
+</p>
+
+### 🛡️ 3. SSH Brute Force Details & MITRE ATT&CK
+Detailed view of Rule ID `5710` triggered with mapped MITRE tactics and techniques.
+<p align="center">
+  <img src="images/ssh-rule-details.png" alt="SSH Attack Details" width="90%">
+</p>
+
+### 📂 4. File Integrity Monitoring (FIM) Alerts
+Real-time capture of critical changes (Rule 550 & 554) detected on system files.
+<p align="center">
+  <img src="images/fim-alert-details.png" alt="FIM Event Breakdown" width="90%">
+</p>
 
 ## 🏠 Dashboard
 
