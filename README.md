@@ -111,35 +111,43 @@ Real-time capture of critical changes (Rule 550 & 554) detected on system files.
   <img src="images/fim-alert-details.png" alt="FIM Event Breakdown" width="90%">
 </p>
 
-## 🏠 Dashboard
+## 🏠 1. Dashboard Overview
 
-![Dashboard Home](screenshots/dashboard-home.png)
-
----
-
-## 📊 Security Events
-
-![Security Events](screenshots/security-events.png)
+<p align="center">
+  <img src="images/dashboard-home.png" alt="Dashboard Home" width="90%">
+</p>
 
 ---
 
-## 🔍 Discover
+## 📊 2. Security Events
 
-![Discover Alerts](screenshots/discover-alerts.png)
-
----
-
-## 💻 Agents
-
-![Agents](screenshots/agents.png)
+<p align="center">
+  <img src="images/Event.png" alt="Security Events" width="90%">
+</p>
 
 ---
 
-## 🎯 MITRE ATT&CK
+## 🔍 3. Discover Alerts
 
-![MITRE ATT&CK](screenshots/mitre.png)
+<p align="center">
+  <img src="images/discover-alerts.png" alt="Discover Alerts" width="90%">
+</p>
 
 ---
+
+## 💻 4. Monitored Agents
+
+<p align="center">
+  <img src="images/agents.png" alt="Agents" width="90%">
+</p>
+
+---
+
+## 🎯 5. MITRE ATT&CK Mapping
+
+<p align="center">
+  <img src="images/mitre.png" alt="MITRE ATT&CK" width="90%">
+</p>
 
 # 📜 Detection Rules
 
