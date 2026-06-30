@@ -1,4 +1,23 @@
-# 🛡️ Wazuh SIEM Home Lab
+# 🛡️ <p align="center">
+  <img src="assets/wazuh-logo.png" width="220">
+</p>
+
+<h1 align="center">Wazuh SIEM Home Lab</h1>
+
+<p align="center">
+Enterprise SIEM • Threat Detection • Incident Response
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Wazuh-4.14.5-blue" alt="Wazuh">
+  <img src="https://img.shields.io/badge/Kali-Linux-blue" alt="Kali Linux">
+  <img src="https://img.shields.io/badge/OpenSearch-2.x-success" alt="OpenSearch">
+  <img src="https://img.shields.io/badge/Filebeat-7.x-green" alt="Filebeat">
+  <img src="https://img.shields.io/badge/VMware-Workstation-orange" alt="VMware">
+  <img src="https://img.shields.io/badge/License-MIT-red" alt="License">
+</p>
+
+---
 
 A complete **Security Information and Event Management (SIEM)** Home Lab built using **Wazuh**, **OpenSearch**, **Filebeat**, and **Wazuh Dashboard** on **Kali Linux** with a **Windows Agent** for endpoint monitoring.
 
