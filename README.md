@@ -285,6 +285,48 @@ sudo touch /etc/fim-demo.txt
 # Simulating unauthorized content modification
 echo "Test" | sudo tee -a /etc/fim-demo.txt
 
+## ⚔️ Scenario 3: SSH Brute Force Detection & Active Response Mitigation
+
+### 🎯 Objective
+Demonstrate Wazuh's capability to detect persistent multi-threaded authentication attacks (Brute Forcing) using automated tools and leverage **Active Response** to dynamically block the attacker's IP address.
+
+### 🧰 Attack Tool
+* **Hydra:** A fast and flexible network logon cracker used to simulate a high-velocity password guessing attack.
+
+🛡️ Active Response Trigger:
+Upon detecting a threshold of continuous failures, the Wazuh Manager dynamically invoked the firewall-drop script, modifying local host firewall rules (iptables) to block the adversarial IP source for 10 minutes.
+
+🔍 Detection & Mitigation Metrics
+| Property | Value |
+|----------|-------|
+| Rule ID | 5760 |
+| Rule Level | 5 |
+| Description | sshd: authentication failed |
+| MITRE Technique | T1110.001 - Password Guessing |
+| Remote Service | T1021.004 - SSH |
+
+📊 Evidence & Artifacts
+1. Advanced Brute Force Detection
+Wazuh capturing the high-frequency failure signatures and successfully correlating them with the MITRE ATT&CK framework.
+
+2. Active Response Execution Log
+Evidence from the dashboard confirming that the security system shifted from passive monitoring to active containment by executing the firewall block.
+
+🏆 Outcome
+Real-time Alerting: Automated credential harvesting tools were immediately flagged.
+
+Proactive Containment: The SIEM successfully transitioned into an active defense mechanism, neutralizing the attack path before a breach could occur.
+
+Centralized Audit: Both the attack indicators and the automated defensive response were logged and indexed for forensic visibility.
+---
+
+### ⚡ Attack & Response Simulation
+The attack was launched using Hydra against the local SSH service to trigger rapid, consecutive authentication failures:
+
+```bash
+# High-velocity SSH Brute Force simulation
+hydra -l root -P /usr/share/wordlists/rockyou.txt ssh://localhost -t 4
+
 #### ⚡ Attack Simulation Command:
 ```bash
 for i in {1..50}; do ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password -o ConnectTimeout=1 -o NumberOfPasswordPrompts=1 non_existent_user@localhost -p 22 2>/dev/null; done
