@@ -126,6 +126,29 @@ The lab demonstrates effective detection and alerting capabilities for the follo
 - **Suspicious Login Attempts:** Identifying out-of-hours or anomalous user logons.
 - **Root Activity:** Auditing critical commands executed by the superuser.
 
+
+- ### 🛡️ Scenario 1: SSH Brute Force Detection
+
+To test the SIEM's real-time alerting and MITRE ATT&CK mapping, an SSH Brute Force attack was simulated locally using a fast automated loop generating failed authentication logs.
+
+#### ⚡ Attack Simulation Command:
+```bash
+for i in {1..50}; do ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password -o ConnectTimeout=1 -o NumberOfPasswordPrompts=1 non_existent_user@localhost -p 22 2>/dev/null; done
+
+🔍 Wazuh Detection & Rule Details:
+Wazuh successfully detected the anomalous spikes in authentication failures and triggered high-fidelity alerts based on the following pre-configured rules:
+
+Triggered Rule: 5710 - sshd: Attempt to login using a non-existent user
+
+Alert Level: 5 (Security Event Logged)
+
+MITRE ATT&CK Mapping:
+
+Tactics: Credential Access, Lateral Movement
+
+Techniques: Password Guessing (T1110.001), SSH (T1021.004)
+
+
 # ✨ Features
 
 - **Centralized Log Collection:** Gathering logs from diverse endpoints into a single repository.
