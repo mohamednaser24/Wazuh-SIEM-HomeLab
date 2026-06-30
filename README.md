@@ -115,24 +115,29 @@ Wazuh-SIEM-HomeLab/
 
 ---
 
-## 📜 Rules
+# 📜 Detection Rules
 
-![Rules](screenshots/rules.png)
+The lab demonstrates effective detection and alerting capabilities for the following scenarios:
 
----
+- **SSH Brute Force:** Detecting high-frequency failed login attempts over SSH.
+- **Authentication Failures:** Tracking unauthorized access attempts across systems.
+- **File Changes:** Generating alerts on modifications to sensitive system files.
+- **Privilege Escalation:** Monitoring for unauthorized use of `sudo` or root access transitions.
+- **Suspicious Login Attempts:** Identifying out-of-hours or anomalous user logons.
+- **Root Activity:** Auditing critical commands executed by the superuser.
 
 # ✨ Features
 
-- Centralized log collection
-- Real-time security monitoring
-- Windows endpoint monitoring
-- Alert generation
-- Rule-based detection
-- MITRE ATT&CK integration
-- File Integrity Monitoring
-- Dashboard visualization
+- **Centralized Log Collection:** Gathering logs from diverse endpoints into a single repository.
+- **Security Event Monitoring:** Real-time tracking of system and security events.
+- **File Integrity Monitoring (FIM):** Monitoring critical files for unauthorized modifications.
+- **MITRE ATT&CK Mapping:** Aligning detected alerts with the MITRE ATT&CK framework.
+- **OpenSearch Dashboard:** Powerful visualization and search capabilities for security analytics.
+- **Agent Management:** Centralized control, deployment, and health tracking of endpoints.
+- **Rule-Based Detection:** Utilizing built-in and custom rules to trigger high-fidelity alerts.
+- **Alert Visualization:** Comprehensive charts and graphs for quick incident triage.
 
----
+- 
 
 # 📚 Documentation
 
@@ -153,14 +158,19 @@ The repository includes documentation for:
 
 # 🎯 Future Improvements
 
-- Add Active Response
-- Add File Integrity Monitoring screenshots
-- Add Security Configuration Assessment (SCA)
-- Add Sigma Rules
-- Add Custom Decoders
-- Add Detection Engineering examples
+To expand this Home Lab into a fully-fledged SOC environment, the following integrations are planned:
+
+- 💻 **Windows Agent Deployment:** Expanding monitoring to Windows endpoints.
+- 🔍 **Sysmon Integration:** Deep endpoint logging for advanced threat hunting on Windows.
+- 🦏 **Suricata IDS:** Network-based intrusion detection and traffic analysis.
+- 🦅 **Zeek (Bro):** Network security monitoring and detailed protocol logging.
+- 🦠 **VirusTotal Integration:** Automated file hash analysis against threat intelligence databases.
+- 🐝 **TheHive:** Implementing an open-source incident response platform for case management.
+- 🧠 **Cortex:** Automated observable analysis and active response orchestration.
+- 🐋 **Docker Deployment:** Containerizing the entire SIEM stack for easier scalability.
 
 ---
+
 
 # 👨‍💻 Author
 
