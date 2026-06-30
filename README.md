@@ -268,6 +268,23 @@ sudo systemctl status ssh
 
 To test the SIEM's real-time alerting and MITRE ATT&CK mapping, an SSH Brute Force attack was simulated locally using a fast automated loop generating failed authentication logs.
 
+---
+
+## 📂 Scenario 2: File Integrity Monitoring (FIM)
+
+### 🎯 Objective
+Verify Wazuh’s File Integrity Monitoring (FIM) capabilities in detecting unauthorized file additions and modifications within critical system directories in real-time.
+
+### ⚡ Attack Simulation
+The `/etc` directory contains vital configuration files. To simulate a persistence mechanism or unauthorized tampering, a new configuration file was created and modified using the root privileges:
+
+```bash
+# Simulating unauthorized file creation in a monitored directory
+sudo touch /etc/fim-demo.txt
+
+# Simulating unauthorized content modification
+echo "Test" | sudo tee -a /etc/fim-demo.txt
+
 #### ⚡ Attack Simulation Command:
 ```bash
 for i in {1..50}; do ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password -o ConnectTimeout=1 -o NumberOfPasswordPrompts=1 non_existent_user@localhost -p 22 2>/dev/null; done
