@@ -51,6 +51,19 @@ This project demonstrates the deployment and configuration of a complete SIEM en
 # 🏗️ Lab Architecture
 
 ## Architecture
+A comprehensive hands-on environment designed to simulate enterprise threat detection, log correlation, and automated incident mitigation.
+
+```text
+       [ Attacker (Hydra/Tampering) ]
+                     │
+                     ▼
+             [ Ubuntu Endpoint ]
+                     │ (Monitored via Wazuh Agent)
+                     ▼
+              [ Wazuh Manager ]
+                     │ (Log Parsing & Rule Engine)
+                     ▼
+     [ Filebeat ] ───► [ OpenSearch Indexer ] ───► [ SOC Dashboard ]
 
 ![Architecture](images/architecture.png)
 
