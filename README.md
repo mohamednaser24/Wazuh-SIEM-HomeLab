@@ -1,12 +1,8 @@
 # 🛡️ <p align="center">
-  <img src="assets/wazuh.jfif" width="220">
+  <img src="wazuh.jfif" width="220">
 </p>
 
 <h1 align="center">Wazuh SIEM Home Lab</h1>
-
-<p align="center">
-Enterprise SIEM • Threat Detection • Incident Response
-</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Wazuh-4.14.5-blue" alt="Wazuh">
