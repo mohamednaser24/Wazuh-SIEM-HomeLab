@@ -1,5 +1,5 @@
 # 🛡️ <p align="center">
-  <img src="assets/wazuh-logo.png" width="220">
+  <img src="assets/wazuh.jfif" width="220">
 </p>
 
 <h1 align="center">Wazuh SIEM Home Lab</h1>
