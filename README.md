@@ -50,7 +50,39 @@ This project demonstrates the deployment and configuration of a complete SIEM en
 
 # 🏗️ Lab Architecture
 
-> *(Architecture diagram will be added soon.)*
+## Architecture
+
+![Architecture](images/architecture.png)
+
+Attacker
+
+↓
+
+Ubuntu Endpoint
+
+↓
+
+Wazuh Agent
+
+↓
+
+Wazuh Manager
+
+↓
+
+Filebeat
+
+↓
+
+Indexer
+
+↓
+
+Dashboard
+
+↓
+
+SOC Analyst
 
 ---
 
@@ -70,15 +102,38 @@ This project demonstrates the deployment and configuration of a complete SIEM en
 
 # 📂 Project Structure
 
-```text
-Wazuh-SIEM-HomeLab/
-├── configs/
-├── detections/
+wazuh-siem-home-lab/
+│
+├── README.md
+├── LICENSE
+├── .gitignore
+│
 ├── docs/
-├── reports/
-├── screenshots/
+│   ├── installation.md
+│   ├── architecture.md
+│   ├── detections.md
+│   ├── active-response.md
+│   ├── troubleshooting.md
+│   └── lessons-learned.md
+│
+├── images/
+│   ├── architecture.png
+│   ├── dashboard.png
+│   ├── alerts.png
+│   ├── ssh-bruteforce.png
+│   ├── fim.png
+│   ├── active-response.png
+│   └── custom-rules.png
+│
+├── rules/
+│   └── local_rules.xml
+│
 ├── scripts/
-└── README.md
+│
+└── configs/
+    ├── ossec.conf
+    └── filebeat.yml
+    
 ```
 
 ---
@@ -268,12 +323,47 @@ sudo systemctl status ssh
 
 To test the SIEM's real-time alerting and MITRE ATT&CK mapping, an SSH Brute Force attack was simulated locally using a fast automated loop generating failed authentication logs.
 
+Goal
+
+Detect repeated failed SSH login attempts.
+
+MITRE Technique
+
+T1110
+
+Detection
+
+Wazuh Rule
+
+Evidence
+
+Screenshot
+
+![SSH](images/ssh-bruteforce.png)
+
 ---
 
 ## 📂 Scenario 2: File Integrity Monitoring (FIM)
 
 ### 🎯 Objective
 Verify Wazuh’s File Integrity Monitoring (FIM) capabilities in detecting unauthorized file additions and modifications within critical system directories in real-time.
+
+Goal
+
+Detect unauthorized file changes.
+
+Monitored Directory
+
+/etc
+
+Detection
+
+Real-time
+
+Evidence
+
+Screenshot
+
 
 ### ⚡ Attack Simulation
 The `/etc` directory contains vital configuration files. To simulate a persistence mechanism or unauthorized tampering, a new configuration file was created and modified using the root privileges:
@@ -332,6 +422,16 @@ Instead of blocking from the first mistake, a custom correlation rule was built 
 🛡️ Active Response Trigger:
 Upon detecting a threshold of continuous failures, the Wazuh Manager dynamically invoked the firewall-drop script, modifying local host firewall rules (iptables) to block the adversarial IP source for 10 minutes.
 
+When multiple failed SSH logins occur:
+
+✔ Alert Generated
+
+✔ Rule Triggered
+
+✔ IP Blocked
+
+✔ Attack Stopped
+
 🔍 Detection & Mitigation Metrics
 | Property | Value |
 |----------|-------|
@@ -355,6 +455,14 @@ SOAR Automation: Reduced Time-to-Mitigate (TTM) down to milliseconds without hum
 
 Adaptive Defense: Hardened the host dynamically while ensuring forensic logs are preserved for the incident response cycle.
 ---
+
+## MITRE Mapping
+| Technique | Detection         |
+| --------- | ----------------- |
+| T1110     | SSH Brute Force   |
+| T1070     | File Changes      |
+| T1087     | Account Discovery |
+| T1059     | Command Execution |
 
 
 ## ⚔️ Scenario 4: Advanced Custom SSH Brute Force Detection & Active Response
@@ -435,6 +543,18 @@ Tactics: Credential Access, Lateral Movement
 
 Techniques: Password Guessing (T1110.001), SSH (T1021.004)
 
+## 🧠 Lessons Learned & Engineering Takeaways
+
+Through planning, deploying, and hardening this SIEM home lab, I gained deep hands-on expertise in defensive security engineering, log analysis, and incident mitigation:
+
+* **🏗️ Enterprise SIEM Deployment:** Built a fully functioning Wazuh ecosystem from the ground up, understanding core manager-agent architectures and communication protocols.
+* **⚡ Log Pipeline Optimization:** Configured and engineered **Filebeat** to reliably harvest, format, and ship security events to the indexing clusters.
+* **🛠️ Cluster Troubleshooting:** Gained critical infrastructure experience diagnosing index failures, memory allocations, and health checks within **OpenSearch**.
+* **✍️ Advanced Rule Engineering:** Wrote and tested custom XML correlation logic (`local_rules.xml`) using `wazuh-logtest` to analyze multi-event thresholds and prevent false positives.
+* **🛡️ SOAR & Active Defense Automation:** Designed automated **Active Response** playbooks, converting passive monitoring logs into real-time operational defense via host firewalls (`iptables`).
+* **🔍 Linux Forensic Auditing:** Developed a deep understanding of Linux authentication log mechanics (`/var/log/auth.log`) to trace session states, credential abuses, and attack profiles.
+* **📊 SOC Visualization Design:** Built scannable, performance-focused threat hunting dashboards that convert raw JSON telemetry into actionable security intelligence.
+
 
 # ✨ Features
 
@@ -478,6 +598,19 @@ To expand this Home Lab into a fully-fledged SOC environment, the following inte
 - 🐝 **TheHive:** Implementing an open-source incident response platform for case management.
 - 🧠 **Cortex:** Automated observable analysis and active response orchestration.
 - 🐋 **Docker Deployment:** Containerizing the entire SIEM stack for easier scalability.
+
+
+## 🛠️ Cyber Security Skills Demonstrated
+
+This project serves as measurable proof of core capabilities across security operations, engineering, and incident handling workflows:
+
+* **🏗️ SIEM Infrastructure Engineering:** Designing, deploying, and maintaining centralized logging architectures, node communications, and cluster health.
+* **🎯 Detection Engineering & Threat Hunting:** Authoring custom security rules, threshold correlation logic, and log parsing to detect sophisticated adversarial behaviors.
+* **📈 Advanced Log Forensic Analysis:** Auditing structured/unstructured telemetry, identifying attack signatures within operating system logs, and tracing user session states.
+* **🐧 Linux System Administration:** Deep hardening of Linux hosts, configuring daemon services (SSHD, Syslog), managing system integrity, and scripting automation.
+* **🛡️ Incident Response & Automated Mitigation:** Implementing SOAR-like active containment playbooks to dynamically mitigate live threats (Active Response & IP Blocking).
+* **🗺️ Adversarial Mapping (MITRE ATT&CK):** Aligning real-time detection telemetry with standardized adversary tactics and techniques for proper threat posture reporting.
+* **📊 Enterprise SOC Operations:** Building high-fidelity dashboards, optimizing time-to-alert, filtering out false positives, and managing the security monitoring lifecycle.
 
 ---
 
