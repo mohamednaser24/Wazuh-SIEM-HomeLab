@@ -49,6 +49,11 @@ This project demonstrates the deployment and configuration of a complete SIEM en
 ---
 
 # 🏗️ Lab Architecture
+A comprehensive hands-on environment designed to simulate enterprise threat detection, log correlation, and automated incident mitigation.
+
+<p align="center">
+  <img src="images/architecture.png" alt="Wazuh Lab Architecture Diagram" width="90%">
+</p>
 
 ## Architecture
 A comprehensive hands-on environment designed to simulate enterprise threat detection, log correlation, and automated incident mitigation.
@@ -65,7 +70,7 @@ A comprehensive hands-on environment designed to simulate enterprise threat dete
                      ▼
      [ Filebeat ] ───► [ OpenSearch Indexer ] ───► [ SOC Dashboard ]
 
-![Architecture](images/architecture.png)
+
 
 Attacker
 
