@@ -1,6 +1,6 @@
 # 🛡️ <p align="center">
- <p align="center">
-  <img src="wazuh.jfif" width="220" alt="Wazuh Logo">
+<p align="center">
+  <img src="wazuh.jfif" width="100%" alt="Wazuh Banner">
 </p>
 
 <h1 align="center">🛡️ Wazuh SIEM Home Lab</h1>
